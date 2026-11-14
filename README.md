@@ -2,34 +2,38 @@
 
 Simple static image / asset hosting for **Lag0n**.
 
-Deploy this repo to [Vercel](https://vercel.com) and your images will be available at:
+Live site after deploy:
+```
+https://lag0nurls.vercel.app
+```
 
+Individual images:
 ```
 https://lag0nurls.vercel.app/assets/your-image.png
 ```
 
-(or whatever custom domain / project name you choose)
+## How to add images
 
-## How to use
+1. Put the file in the `assets/` folder  
+2. Add the filename to `assets.json` (example below)  
+3. Commit & push → Vercel auto-deploys
 
-1. Drop any images into the `assets/` folder
-2. Commit & push
-3. Vercel will automatically redeploy
-4. Access them at `/assets/filename.ext`
-
-## Example
-
-```
-assets/
-  logo.png
-  banner.webp
-  icon.svg
+### Example `assets.json`
+```json
+[
+  "logo.png",
+  "banner.webp",
+  "icon.svg"
+]
 ```
 
-→ `https://your-deployment.vercel.app/assets/logo.png`
+The homepage will automatically show a searchable gallery with Open + Copy buttons for every entry.
 
-## Configuration
-
-- Long cache headers for assets (1 year)
-- CORS enabled (`Access-Control-Allow-Origin: *`)
-- Clean URLs enabled
+## Structure
+```
+├── index.html      ← gallery page
+├── assets.json     ← list of filenames (keeps the gallery updated)
+├── assets/         ← put your images here
+├── vercel.json     ← cache + CORS headers
+└── README.md
+```
