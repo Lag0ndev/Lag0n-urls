@@ -482,13 +482,13 @@
         icon: '🎩',
         cover: 'placeholderblook.svg',
         description: 'Classic baseball hats',
-        assets: ['ladodgershat.svg', 'oaklandashat.svg', 'atlantabraveshat.svg']
+        assets: ['ladodgershat.svg', 'oaklandashat.svg', 'braveshat.svg']
       }
     ];
 
-    let allAssets = [];          // flat list from assets.json
-    let currentFilter = 'blooks'; // blooks | packs | other
-    let activePack = null;       // pack object when drilled in
+    let allAssets = [];
+    let currentFilter = 'blooks';
+    let activePack = null;
 
     async function loadAssets() {
       try {
@@ -507,19 +507,10 @@
       return set;
     }
 
-    function getOtherAssets() {
-      const inPack = getPackAssetSet();
-      return allAssets.filter(a => {
-        const name = typeof a === 'string' ? a : a.name;
-        return !inPack.has(name);
-      });
-    }
-
     function applyView() {
       const q = searchInput.value.trim().toLowerCase();
 
       if (activePack) {
-        // Pack detail view
         let list = activePack.assets;
         if (q) {
           list = list.filter(name => name.toLowerCase().includes(q));
@@ -538,10 +529,8 @@
         }
         renderPacks(packs);
       } else if (currentFilter === 'other') {
-        // intentionally empty for now
         renderAssets([]);
       } else {
-        // blooks (all individual assets)
         let list = allAssets;
         if (q) {
           list = list.filter(a => {
@@ -660,7 +649,6 @@
       });
     }
 
-    // Filter buttons
     filtersEl.addEventListener('click', (e) => {
       const btn = e.target.closest('.filter-btn');
       if (!btn) return;
