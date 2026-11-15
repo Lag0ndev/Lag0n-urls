@@ -480,6 +480,7 @@
         id: 'hat-pack',
         name: 'Hat Pack',
         icon: '🎩',
+        cover: 'placeholderblook.svg',
         description: 'Classic baseball hats',
         assets: ['ladodgershat.svg', 'oaklandashat.svg']
       }
@@ -575,10 +576,12 @@
       grid.innerHTML = packs.map(pack => `
         <div class="card clickable" data-pack="${pack.id}" onclick="openPack('${pack.id}')">
           <div class="preview">
-            <div class="pack-cover">
-              <div class="pack-icon">${pack.icon}</div>
+            ${pack.cover
+              ? `<img src="${base}/assets/${pack.cover}" alt="${pack.name}" loading="lazy" onerror="this.onerror=null;this.src='${base}/assets/placeholderblook.svg'" />`
+              : `<div class="pack-cover">
+              <div class="pack-icon">${pack.icon || '📦'}</div>
               <div class="pack-label">Pack</div>
-            </div>
+            </div>`}
           </div>
           <div class="card-body">
             <div class="pack-name">${pack.name}</div>
@@ -623,7 +626,7 @@
           <div class="card" data-name="${name.toLowerCase()}">
             <div class="preview">
               ${isImage
-                ? `<img src="${url}" alt="${name}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\'placeholder\'>Preview unavailable</div>'" />`
+                ? `<img src="${url}" alt="${name}" loading="lazy" onerror="this.onerror=null;this.src='${base}/assets/placeholderblook.svg'" />`
                 : `<div class="placeholder">${name.split('.').pop()?.toUpperCase() || 'FILE'}</div>`}
             </div>
             <div class="card-body">
