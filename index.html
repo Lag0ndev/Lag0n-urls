@@ -41,7 +41,7 @@
     }
 
     header {
-      margin-bottom: 3rem;
+      margin-bottom: 2rem;
       text-align: center;
     }
 
@@ -83,8 +83,39 @@
       font-weight: 600;
     }
 
+    .filters {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 0.55rem 1.15rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .filter-btn:hover {
+      border-color: #3f3f46;
+      color: var(--text);
+    }
+
+    .filter-btn.active {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #0a0a0b;
+    }
+
     .search-wrap {
-      margin-bottom: 2rem;
+      margin-bottom: 1.75rem;
       position: relative;
     }
 
@@ -117,6 +148,51 @@
       pointer-events: none;
     }
 
+    .back-bar {
+      display: none;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      padding: 0.75rem 1rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    .back-bar.visible {
+      display: flex;
+    }
+
+    .back-btn {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 0.4rem 0.85rem;
+      border-radius: 8px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      transition: background 0.15s;
+    }
+
+    .back-btn:hover {
+      background: #252528;
+    }
+
+    .pack-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .pack-meta {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      margin-left: auto;
+    }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -138,6 +214,14 @@
       transform: translateY(-2px);
     }
 
+    .card.clickable {
+      cursor: pointer;
+    }
+
+    .card.clickable:hover {
+      border-color: var(--accent);
+    }
+
     .preview {
       aspect-ratio: 16 / 10;
       background: var(--surface-2);
@@ -151,7 +235,8 @@
     .preview img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
+      padding: 0.75rem;
     }
 
     .preview .placeholder {
@@ -159,6 +244,45 @@
       font-size: 0.8rem;
       text-align: center;
       padding: 1rem;
+    }
+
+    .pack-cover {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      background: linear-gradient(145deg, #1e1b2e 0%, #141416 50%, #1a1525 100%);
+      position: relative;
+    }
+
+    .pack-cover::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 30% 40%, rgba(167, 139, 250, 0.18), transparent 50%),
+        radial-gradient(circle at 70% 70%, rgba(52, 211, 153, 0.1), transparent 45%);
+    }
+
+    .pack-icon {
+      font-size: 2.75rem;
+      line-height: 1;
+      position: relative;
+      z-index: 1;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.4));
+    }
+
+    .pack-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--accent);
+      position: relative;
+      z-index: 1;
     }
 
     .card-body {
@@ -175,6 +299,17 @@
       font-weight: 500;
       color: var(--text);
       word-break: break-all;
+    }
+
+    .pack-name {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .pack-count {
+      font-size: 0.8rem;
+      color: var(--text-muted);
     }
 
     .url {
@@ -286,18 +421,33 @@
   <div class="container">
     <header>
       <div class="logo">Lag0n<span> URLs</span></div>
-      <p class="subtitle">Image & asset index · click any link to open or copy</p>
+      <p class="subtitle">Image & asset index · packs, filters & direct links</p>
       <div class="stats">
-        <div class="stat"><strong id="count">0</strong> assets</div>
+        <div class="stat"><strong id="count">0</strong> <span id="count-label">assets</span></div>
         <div class="stat">Base: <strong id="base-url">—</strong></div>
       </div>
     </header>
 
-    <div class="search-wrap">
+    <div class="filters" id="filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="packs">Packs</button>
+      <button class="filter-btn" data-filter="other">Other</button>
+    </div>
+
+    <div class="search-wrap" id="search-wrap">
       <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
       </svg>
-      <input type="search" id="search" placeholder="Search by filename..." autocomplete="off" />
+      <input type="search" id="search" placeholder="Search by filename or pack..." autocomplete="off" />
+    </div>
+
+    <div class="back-bar" id="back-bar">
+      <button class="back-btn" id="back-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back
+      </button>
+      <span class="pack-title" id="pack-title"></span>
+      <span class="pack-meta" id="pack-meta"></span>
     </div>
 
     <div class="grid" id="grid">
@@ -312,36 +462,154 @@
   <script>
     const grid = document.getElementById('grid');
     const countEl = document.getElementById('count');
+    const countLabel = document.getElementById('count-label');
     const baseUrlEl = document.getElementById('base-url');
     const searchInput = document.getElementById('search');
+    const filtersEl = document.getElementById('filters');
+    const backBar = document.getElementById('back-bar');
+    const backBtn = document.getElementById('back-btn');
+    const packTitleEl = document.getElementById('pack-title');
+    const packMetaEl = document.getElementById('pack-meta');
 
-    // Current origin (works on localhost + vercel)
     const base = window.location.origin;
     baseUrlEl.textContent = base;
 
-    let assets = [];
+    // Pack definitions (assets belong to packs)
+    const PACKS = [
+      {
+        id: 'hat-pack',
+        name: 'Hat Pack',
+        icon: '🎩',
+        description: 'Classic baseball hats',
+        assets: ['ladodgershat.svg', 'oaklandashat.svg']
+      }
+    ];
+
+    let allAssets = [];          // flat list from assets.json
+    let currentFilter = 'all';   // all | packs | other
+    let activePack = null;       // pack object when drilled in
 
     async function loadAssets() {
       try {
         const res = await fetch('/assets.json');
         if (!res.ok) throw new Error('no assets.json');
-        assets = await res.json();
+        allAssets = await res.json();
       } catch (e) {
-        // fallback empty
-        assets = [];
+        allAssets = [];
       }
-      render(assets);
+      applyView();
     }
 
-    function render(list) {
+    function getPackAssetSet() {
+      const set = new Set();
+      PACKS.forEach(p => p.assets.forEach(a => set.add(a)));
+      return set;
+    }
+
+    function getOtherAssets() {
+      const inPack = getPackAssetSet();
+      return allAssets.filter(a => {
+        const name = typeof a === 'string' ? a : a.name;
+        return !inPack.has(name);
+      });
+    }
+
+    function applyView() {
+      const q = searchInput.value.trim().toLowerCase();
+
+      if (activePack) {
+        // Pack detail view
+        let list = activePack.assets;
+        if (q) {
+          list = list.filter(name => name.toLowerCase().includes(q));
+        }
+        renderAssets(list, { packMode: true });
+        return;
+      }
+
+      if (currentFilter === 'packs') {
+        let packs = PACKS;
+        if (q) {
+          packs = packs.filter(p =>
+            p.name.toLowerCase().includes(q) ||
+            p.assets.some(a => a.toLowerCase().includes(q))
+          );
+        }
+        renderPacks(packs);
+      } else if (currentFilter === 'other') {
+        let list = getOtherAssets();
+        if (q) {
+          list = list.filter(a => {
+            const name = typeof a === 'string' ? a : a.name;
+            return name.toLowerCase().includes(q);
+          });
+        }
+        renderAssets(list);
+      } else {
+        // all
+        let list = allAssets;
+        if (q) {
+          list = list.filter(a => {
+            const name = typeof a === 'string' ? a : a.name;
+            return name.toLowerCase().includes(q);
+          });
+        }
+        renderAssets(list);
+      }
+    }
+
+    function renderPacks(packs) {
+      countEl.textContent = packs.length;
+      countLabel.textContent = packs.length === 1 ? 'pack' : 'packs';
+      backBar.classList.remove('visible');
+
+      if (packs.length === 0) {
+        grid.innerHTML = `
+          <div class="empty">
+            <h3>No packs found</h3>
+            <p>Try a different search or switch filters.</p>
+          </div>`;
+        return;
+      }
+
+      grid.innerHTML = packs.map(pack => `
+        <div class="card clickable" data-pack="${pack.id}" onclick="openPack('${pack.id}')">
+          <div class="preview">
+            <div class="pack-cover">
+              <div class="pack-icon">${pack.icon}</div>
+              <div class="pack-label">Pack</div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="pack-name">${pack.name}</div>
+            <div class="pack-count">${pack.assets.length} asset${pack.assets.length === 1 ? '' : 's'} · ${pack.description || ''}</div>
+            <div class="actions">
+              <button class="btn btn-primary" onclick="event.stopPropagation(); openPack('${pack.id}')">Open Pack</button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderAssets(list, opts = {}) {
       countEl.textContent = list.length;
+      countLabel.textContent = list.length === 1 ? 'asset' : 'assets';
+
+      if (opts.packMode && activePack) {
+        backBar.classList.add('visible');
+        packTitleEl.textContent = activePack.name;
+        packMetaEl.textContent = `${list.length} of ${activePack.assets.length}`;
+      } else {
+        backBar.classList.remove('visible');
+      }
 
       if (list.length === 0) {
         grid.innerHTML = `
           <div class="empty">
-            <h3>No assets yet</h3>
-            <p>Drop images into the <code>assets/</code> folder,<br>
-            then add their filenames to <code>assets.json</code> and push.</p>
+            <h3>${opts.packMode ? 'No matching assets in this pack' : 'No assets yet'}</h3>
+            <p>${opts.packMode
+              ? 'Try clearing the search.'
+              : 'Drop images into the <code>assets/</code> folder,<br>then add their filenames to <code>assets.json</code> and push.'}</p>
           </div>`;
         return;
       }
@@ -349,7 +617,7 @@
       grid.innerHTML = list.map(item => {
         const name = typeof item === 'string' ? item : item.name;
         const url = `${base}/assets/${name}`;
-        const isImage = /\.(png|jpe?g|gif|webp|svg|avif|bmp|ico)$/i.test(name);
+        const isImage = /\\.(png|jpe?g|gif|webp|svg|avif|bmp|ico)$/i.test(name);
 
         return `
           <div class="card" data-name="${name.toLowerCase()}">
@@ -370,6 +638,19 @@
       }).join('');
     }
 
+    function openPack(id) {
+      activePack = PACKS.find(p => p.id === id) || null;
+      if (activePack) {
+        searchInput.value = '';
+        applyView();
+      }
+    }
+
+    function closePack() {
+      activePack = null;
+      applyView();
+    }
+
     function copyUrl(url, btn) {
       navigator.clipboard.writeText(url).then(() => {
         const original = btn.textContent;
@@ -382,16 +663,20 @@
       });
     }
 
-    searchInput.addEventListener('input', () => {
-      const q = searchInput.value.trim().toLowerCase();
-      const filtered = q
-        ? assets.filter(a => {
-            const name = typeof a === 'string' ? a : a.name;
-            return name.toLowerCase().includes(q);
-          })
-        : assets;
-      render(filtered);
+    // Filter buttons
+    filtersEl.addEventListener('click', (e) => {
+      const btn = e.target.closest('.filter-btn');
+      if (!btn) return;
+      currentFilter = btn.dataset.filter;
+      activePack = null;
+      filtersEl.querySelectorAll('.filter-btn').forEach(b => b.classList.toggle('active', b === btn));
+      searchInput.value = '';
+      applyView();
     });
+
+    backBtn.addEventListener('click', closePack);
+
+    searchInput.addEventListener('input', () => applyView());
 
     loadAssets();
   </script>
