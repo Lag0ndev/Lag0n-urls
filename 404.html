@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 — Not Found · Lag0n URLs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0b;
+      --surface: #141416;
+      --border: #2a2a2e;
+      --text: #f4f4f5;
+      --text-muted: #a1a1aa;
+      --accent: #a78bfa;
+      --accent-hover: #c4b5fd;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.25;
+      animation: float-up linear infinite;
+    }
+
+    @keyframes float-up {
+      0%   { transform: translateY(100vh) scale(0.4); opacity: 0; }
+      10%  { opacity: 0.35; }
+      90%  { opacity: 0.2; }
+      100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 2rem 1.5rem;
+      max-width: 480px;
+    }
+
+    .blook-stage {
+      position: relative;
+      width: 220px;
+      height: 220px;
+      margin: 0 auto 1.75rem;
+    }
+
+    .blook {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: drop-shadow(0 12px 28px rgba(167, 139, 250, 0.35));
+      animation: bounce-sway 2.4s ease-in-out infinite;
+      user-select: none;
+    }
+
+    @keyframes bounce-sway {
+      0%, 100% { transform: translateY(0) rotate(-3deg); }
+      25%      { transform: translateY(-14px) rotate(2deg); }
+      50%      { transform: translateY(-6px) rotate(-2deg); }
+      75%      { transform: translateY(-16px) rotate(3deg); }
+    }
+
+    .glow {
+      position: absolute;
+      inset: -20%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(167,139,250,0.28) 0%, transparent 65%);
+      animation: pulse-glow 2.4s ease-in-out infinite;
+      z-index: -1;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.55; transform: scale(0.92); }
+      50%      { opacity: 1; transform: scale(1.08); }
+    }
+
+    .code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(3.5rem, 12vw, 5.5rem);
+      font-weight: 700;
+      letter-spacing: -0.06em;
+      line-height: 1;
+      background: linear-gradient(135deg, #c4b5fd 0%, #a78bfa 40%, #818cf8 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: glitch-skew 4s ease-in-out infinite;
+      margin-bottom: 0.5rem;
+    }
+
+    @keyframes glitch-skew {
+      0%, 90%, 100% { transform: skewX(0); }
+      92% { transform: skewX(-4deg) translateX(-2px); }
+      94% { transform: skewX(3deg) translateX(2px); }
+      96% { transform: skewX(-2deg); }
+      98% { transform: skewX(1deg); }
+    }
+
+    .title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .msg {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.55;
+      margin-bottom: 1.75rem;
+    }
+
+    .actions {
+      display: flex;
+      gap: 0.65rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      padding: 0.7rem 1.25rem;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 550;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.15s;
+    }
+
+    .btn:active { transform: scale(0.97); }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #0a0a0b;
+    }
+
+    .btn-primary:hover { background: var(--accent-hover); }
+
+    .btn-ghost {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-ghost:hover { background: #1c1c1f; }
+
+    .path {
+      margin-top: 1.5rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      opacity: 0.7;
+      word-break: break-all;
+    }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <div class="blook-stage">
+      <div class="glow"></div>
+      <img class="blook" src="/assets/404.svg" alt="404 blook" width="220" height="220" />
+    </div>
+
+    <div class="code">404</div>
+    <h1 class="title">Page not found</h1>
+    <p class="msg">
+      This URL doesn’t exist — or the blook wandered off.<br>
+      Try going home or browse the asset gallery.
+    </p>
+
+    <div class="actions">
+      <a class="btn btn-primary" href="/">← Back home</a>
+      <a class="btn btn-ghost" href="/">Browse blooks</a>
+    </div>
+
+    <p class="path" id="path"></p>
+  </div>
+
+  <script>
+    document.getElementById('path').textContent = location.pathname + location.search;
+
+    const box = document.getElementById('particles');
+    for (let i = 0; i < 18; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.style.left = Math.random() * 100 + '%';
+      p.style.animationDuration = (6 + Math.random() * 10) + 's';
+      p.style.animationDelay = (Math.random() * 8) + 's';
+      p.style.width = p.style.height = (3 + Math.random() * 5) + 'px';
+      p.style.opacity = 0.12 + Math.random() * 0.25;
+      box.appendChild(p);
+    }
+  </script>
+</body>
+</html>
