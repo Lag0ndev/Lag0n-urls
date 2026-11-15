@@ -3,13 +3,6 @@
   "version": 2,
   "cleanUrls": true,
   "trailingSlash": false,
-  "redirects": [
-    {
-      "source": "/assets/atlantabraveshat.svg",
-      "destination": "/assets/braveshat.svg",
-      "permanent": true
-    }
-  ],
   "headers": [
     {
       "source": "/assets/(.*)",
