@@ -6,11 +6,12 @@
   <title>404 — Not Found · Lag0n URLs</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #0a0a0b;
       --surface: #141416;
+      --surface-2: #1c1c1f;
       --border: #2a2a2e;
       --text: #f4f4f5;
       --text-muted: #a1a1aa;
@@ -18,212 +19,201 @@
       --accent-hover: #c4b5fd;
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
     body {
       font-family: 'Inter', system-ui, sans-serif;
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+
+    header {
+      margin-bottom: 2.5rem;
+      text-align: center;
+    }
+
+    .logo {
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.4rem;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .card-404 {
+      max-width: 420px;
+      margin: 0 auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .preview {
+      aspect-ratio: 16 / 10;
+      background: var(--surface-2);
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
-      position: relative;
+      padding: 1.25rem;
     }
 
-    .particles {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      overflow: hidden;
-      z-index: 0;
-    }
-
-    .particle {
-      position: absolute;
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--accent);
-      opacity: 0.25;
-      animation: float-up linear infinite;
-    }
-
-    @keyframes float-up {
-      0%   { transform: translateY(100vh) scale(0.4); opacity: 0; }
-      10%  { opacity: 0.35; }
-      90%  { opacity: 0.2; }
-      100% { transform: translateY(-10vh) scale(1); opacity: 0; }
-    }
-
-    .wrap {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      padding: 2rem 1.5rem;
-      max-width: 480px;
-    }
-
-    .blook-stage {
-      position: relative;
-      width: 220px;
-      height: 220px;
-      margin: 0 auto 1.75rem;
-    }
-
-    .blook {
+    .preview img {
+      max-width: 160px;
+      max-height: 160px;
       width: 100%;
-      height: 100%;
+      height: auto;
       object-fit: contain;
-      filter: drop-shadow(0 12px 28px rgba(167, 139, 250, 0.35));
-      animation: bounce-sway 2.4s ease-in-out infinite;
-      user-select: none;
     }
 
-    @keyframes bounce-sway {
-      0%, 100% { transform: translateY(0) rotate(-3deg); }
-      25%      { transform: translateY(-14px) rotate(2deg); }
-      50%      { transform: translateY(-6px) rotate(-2deg); }
-      75%      { transform: translateY(-16px) rotate(3deg); }
-    }
-
-    .glow {
-      position: absolute;
-      inset: -20%;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(167,139,250,0.28) 0%, transparent 65%);
-      animation: pulse-glow 2.4s ease-in-out infinite;
-      z-index: -1;
-    }
-
-    @keyframes pulse-glow {
-      0%, 100% { opacity: 0.55; transform: scale(0.92); }
-      50%      { opacity: 1; transform: scale(1.08); }
+    .card-body {
+      padding: 1.25rem 1.35rem 1.5rem;
     }
 
     .code {
       font-family: 'JetBrains Mono', monospace;
-      font-size: clamp(3.5rem, 12vw, 5.5rem);
-      font-weight: 700;
-      letter-spacing: -0.06em;
-      line-height: 1;
-      background: linear-gradient(135deg, #c4b5fd 0%, #a78bfa 40%, #818cf8 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: glitch-skew 4s ease-in-out infinite;
-      margin-bottom: 0.5rem;
-    }
-
-    @keyframes glitch-skew {
-      0%, 90%, 100% { transform: skewX(0); }
-      92% { transform: skewX(-4deg) translateX(-2px); }
-      94% { transform: skewX(3deg) translateX(2px); }
-      96% { transform: skewX(-2deg); }
-      98% { transform: skewX(1deg); }
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.35rem;
     }
 
     .title {
-      font-size: 1.25rem;
+      font-size: 1rem;
       font-weight: 600;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.35rem;
     }
 
     .msg {
       color: var(--text-muted);
-      font-size: 0.95rem;
-      line-height: 1.55;
-      margin-bottom: 1.75rem;
+      font-size: 0.9rem;
+      margin-bottom: 1.15rem;
+      line-height: 1.5;
+    }
+
+    .path {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      word-break: break-all;
+      margin-bottom: 1.15rem;
+      opacity: 0.85;
     }
 
     .actions {
       display: flex;
-      gap: 0.65rem;
+      gap: 0.5rem;
       justify-content: center;
-      flex-wrap: wrap;
     }
 
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 0.4rem;
-      padding: 0.7rem 1.25rem;
-      border-radius: 10px;
-      font-size: 0.9rem;
-      font-weight: 550;
+      gap: 0.35rem;
+      padding: 0.55rem 1.1rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
       text-decoration: none;
       border: none;
       cursor: pointer;
-      transition: background 0.15s, transform 0.15s;
+      transition: background 0.15s;
     }
-
-    .btn:active { transform: scale(0.97); }
 
     .btn-primary {
       background: var(--accent);
       color: #0a0a0b;
     }
 
-    .btn-primary:hover { background: var(--accent-hover); }
+    .btn-primary:hover {
+      background: var(--accent-hover);
+    }
 
-    .btn-ghost {
-      background: var(--surface);
+    .btn-secondary {
+      background: var(--surface-2);
       color: var(--text);
       border: 1px solid var(--border);
     }
 
-    .btn-ghost:hover { background: #1c1c1f; }
+    .btn-secondary:hover {
+      background: #252528;
+    }
 
-    .path {
-      margin-top: 1.5rem;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
+    footer {
+      margin-top: 3.5rem;
+      text-align: center;
       color: var(--text-muted);
-      opacity: 0.7;
-      word-break: break-all;
+      font-size: 0.8rem;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 1.75rem 1rem 3rem;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="particles" id="particles" aria-hidden="true"></div>
+  <div class="container">
+    <header>
+      <div class="logo">Lag0n<span> URLs</span></div>
+      <p class="subtitle">Image & asset index · packs, filters & direct links</p>
+    </header>
 
-  <div class="wrap">
-    <div class="blook-stage">
-      <div class="glow"></div>
-      <img class="blook" src="/assets/404.svg" alt="404 blook" width="220" height="220" />
+    <div class="card-404">
+      <div class="preview">
+        <img src="/assets/404.svg" alt="404" width="160" height="160" />
+      </div>
+      <div class="card-body">
+        <div class="code">404</div>
+        <div class="title">Page not found</div>
+        <p class="msg">This URL doesn’t exist or the asset was moved.</p>
+        <p class="path" id="path"></p>
+        <div class="actions">
+          <a class="btn btn-primary" href="/">Back home</a>
+          <a class="btn btn-secondary" href="/">Browse blooks</a>
+        </div>
+      </div>
     </div>
 
-    <div class="code">404</div>
-    <h1 class="title">Page not found</h1>
-    <p class="msg">
-      This URL doesn’t exist — or the blook wandered off.<br>
-      Try going home or browse the asset gallery.
-    </p>
-
-    <div class="actions">
-      <a class="btn btn-primary" href="/">← Back home</a>
-      <a class="btn btn-ghost" href="/">Browse blooks</a>
-    </div>
-
-    <p class="path" id="path"></p>
+    <footer>
+      Powered by <a href="https://github.com/Lag0ndev/Lag0n-urls" target="_blank" rel="noopener">Lag0n-urls</a>
+    </footer>
   </div>
 
   <script>
     document.getElementById('path').textContent = location.pathname + location.search;
-
-    const box = document.getElementById('particles');
-    for (let i = 0; i < 18; i++) {
-      const p = document.createElement('div');
-      p.className = 'particle';
-      p.style.left = Math.random() * 100 + '%';
-      p.style.animationDuration = (6 + Math.random() * 10) + 's';
-      p.style.animationDelay = (Math.random() * 8) + 's';
-      p.style.width = p.style.height = (3 + Math.random() * 5) + 'px';
-      p.style.opacity = 0.12 + Math.random() * 0.25;
-      box.appendChild(p);
-    }
   </script>
 </body>
 </html>
