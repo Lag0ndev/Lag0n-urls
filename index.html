@@ -429,7 +429,7 @@
     </header>
 
     <div class="filters" id="filters">
-      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn active" data-filter="blooks">Blooks</button>
       <button class="filter-btn" data-filter="packs">Packs</button>
       <button class="filter-btn" data-filter="other">Other</button>
     </div>
@@ -482,12 +482,12 @@
         icon: '🎩',
         cover: 'placeholderblook.svg',
         description: 'Classic baseball hats',
-        assets: ['ladodgershat.svg', 'oaklandashat.svg']
+        assets: ['ladodgershat.svg', 'oaklandashat.svg', 'houstonastroshat.svg']
       }
     ];
 
     let allAssets = [];          // flat list from assets.json
-    let currentFilter = 'all';   // all | packs | other
+    let currentFilter = 'blooks'; // blooks | packs | other
     let activePack = null;       // pack object when drilled in
 
     async function loadAssets() {
@@ -538,16 +538,10 @@
         }
         renderPacks(packs);
       } else if (currentFilter === 'other') {
-        let list = getOtherAssets();
-        if (q) {
-          list = list.filter(a => {
-            const name = typeof a === 'string' ? a : a.name;
-            return name.toLowerCase().includes(q);
-          });
-        }
-        renderAssets(list);
+        // intentionally empty for now
+        renderAssets([]);
       } else {
-        // all
+        // blooks (all individual assets)
         let list = allAssets;
         if (q) {
           list = list.filter(a => {
